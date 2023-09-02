@@ -39,5 +39,6 @@ module.exports = {
         "key-spacing": [ 2, {"beforeColon": false, "afterColon": true} ],
         "keyword-spacing": [ 2, {"before": true, "after": true} ],
         "no-multi-spaces": "error",
+        "no-unused-vars": [ 2, {"args": "none"} ],
     },
 };
