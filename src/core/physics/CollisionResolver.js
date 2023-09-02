@@ -34,11 +34,7 @@ export class CollisionResolver {
                 break;
             case RigidBody.TYPE:
                 this.#applyFriction();
-                this.force = this.#calculateCollisionForce();
-                this.a.applyForce(this.force);
-                if (this.b.type === RigidBody.TYPE) {
-                    this.b.applyForce(Vector.scale(this.force, -1));
-                }
+                this.a.resolveCollision(this.b, this.normal);
                 break;
             case ProjectalBody.TYPE:
                 break;
@@ -66,24 +62,6 @@ export class CollisionResolver {
         const frictionV = Vector.scale(tangentVector, impulse);
         
         this.a.applyForce(frictionV);
-    }
-
-    #calculateCollisionForce() {
-        const relativeVelocity = Vector.subtract(this.a.velocity, this.b.velocity);
-        const velocityAlongNormal = relativeVelocity.x * this.normal.x + relativeVelocity.y * this.normal.y;
-
-        if (velocityAlongNormal > 0) {
-            // They are moving apart
-            return;
-        }
-
-        let impulse = -(Math.max(1 - Math.min(this.a.restitution, this.b.restitution), 0)) * velocityAlongNormal;
-        impulse *= this.a.mass + this.b.mass;
-
-        return {
-            x: impulse * this.normal.x,
-            y: impulse * this.normal.y,
-        };
     }
 }
 

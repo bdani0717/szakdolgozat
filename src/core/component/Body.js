@@ -15,4 +15,6 @@ export class Body extends Entity.Component {
         this.isColliding = false;
         this.collisions = [];
     }
+
+    resolveCollision(other, normal) {}
 }

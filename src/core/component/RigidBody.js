@@ -1,3 +1,5 @@
+import { getCollisionForce } from "../physics/Collision.js";
+import { Vector } from "../utils/Vector.js";
 import { Body } from "./Body.js";
 
 export class RigidBody extends Body {
@@ -23,5 +25,14 @@ export class RigidBody extends Body {
 
     updatePosition() {
         this.transform.move(this.velocity.x, this.velocity.y);
+    }
+
+    resolveCollision(other, normal) {
+        const force = getCollisionForce(this, other, normal);
+        this.applyForce(force);
+
+        if (other.type === RigidBody.TYPE) {
+            other.applyForce(Vector.scale(force, -1));
+        }
     }
 }    
