@@ -25,7 +25,7 @@ export class PorjectalUpdate extends Update {
             if (body.isColliding) {
                 EntitySystem.removeEntity(self.id);
             }
-        }
+        };
     }
 }
 

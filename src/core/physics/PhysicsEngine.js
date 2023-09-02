@@ -63,7 +63,7 @@ export class PhysicsEngine {
             ...this.#containers[StaticBody.TYPE].find(area),
             ...this.#containers[RigidBody.TYPE].find(area),
             ...this.#containers[KinematicBody.TYPE].find(area),
-            ...this.#containers[AreaBody.TYPE].find(area)
+            ...this.#containers[AreaBody.TYPE].find(area),
         ];
 
         for (const client of clientsInArea) {
@@ -128,7 +128,7 @@ export class PhysicsEngine {
     }
 
     #handleCollisionsByType(type) {
-        for (const [ ,client ] of this.#clients[type]) {
+        for (const [ , client ] of this.#clients[type]) {
             this.#handleCollisionEntity(client);
         }
     }
@@ -142,9 +142,9 @@ export class PhysicsEngine {
             ...this.#clients[ProjectalBody.TYPE], 
             ...this.#clients[StaticBody.TYPE], 
             ...this.#clients[AreaBody.TYPE], 
-            ...this.#clients[KinematicBody.TYPE]
+            ...this.#clients[KinematicBody.TYPE],
         ];
-        for (const [ ,client ] of allClients) {
+        for (const [ , client ] of allClients) {
             const body = EntitySystem.getEntity(client.data.entityId).getComponent(Body);
             body.collisions = [];
             body.isColliding = false;
@@ -155,7 +155,7 @@ export class PhysicsEngine {
      * Update position of entities based on their velocity
      */
     #updatePosition(type) {
-        for (const [ ,client ] of this.#clients[type]) {
+        for (const [ , client ] of this.#clients[type]) {
             const entityId = client.data.entityId;
             const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
             const velocity = body.velocity;
@@ -184,7 +184,7 @@ export class PhysicsEngine {
             return distanceA - distanceB;
         });
 
-        for(const otherClient of clientsInRange) {
+        for (const otherClient of clientsInRange) {
             const otherId = otherClient.data.entityId;
             const other = this.#entityRegistry.getEntity(otherId).getComponent(Body);
             if (otherId !== entityId) {
@@ -202,7 +202,7 @@ export class PhysicsEngine {
     }
 
     #applyGravity() {
-        for (const [ ,client ] of this.#clients[RigidBody.TYPE]) {
+        for (const [ , client ] of this.#clients[RigidBody.TYPE]) {
             const body = this.#entityRegistry.getEntity(client.data.entityId).getComponent(Body);
             body.velocity.y += this.gravity;
         }

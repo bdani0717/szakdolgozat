@@ -29,7 +29,7 @@ export class SoundRegistry {
     }
 
     static clear() {
-        for (const [, sound] of this.#sounds) {
+        for (const [ , sound ] of this.#sounds) {
             r.UnloadSound(sound);
         }
     }

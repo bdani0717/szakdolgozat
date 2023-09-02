@@ -4,24 +4,24 @@ export function sweptAABB(a, av, b, bv) {
     let normalx, normaly;
     const rv = {
         x: av.x - bv.x,
-        y: av.y - bv.y
-    }
+        y: av.y - bv.y,
+    };
 
     // find the distance between the objects on the near and far sides for both x and y 
     if (rv.x > 0) { 
-      dxEntry = b.x - (a.x + a.width);  
-      dxExit = (b.x + b.width) - a.x;
+        dxEntry = b.x - (a.x + a.width);  
+        dxExit = (b.x + b.width) - a.x;
     } else { 
-      dxEntry = (b.x + b.width) - a.x;  
-      dxExit = b.x - (a.x + a.width);  
+        dxEntry = (b.x + b.width) - a.x;  
+        dxExit = b.x - (a.x + a.width);  
     } 
     
     if (rv.y > 0) { 
-      dyEntry = b.y - (a.y + a.height);  
-      dyExit = (b.y + b.height) - a.y;  
+        dyEntry = b.y - (a.y + a.height);  
+        dyExit = (b.y + b.height) - a.y;  
     } else { 
-      dyEntry = (b.y + b.height) - a.y;  
-      dyExit = b.y - (a.y + a.height);  
+        dyEntry = (b.y + b.height) - a.y;  
+        dyExit = b.y - (a.y + a.height);  
     }
 
     // find time of collision and time of leaving for each axis (if statement is to prevent divide by zero) 
@@ -54,10 +54,10 @@ export function sweptAABB(a, av, b, bv) {
         normaly = 0; 
         return {
             time: 1,
-            normal: {x: normalx, y: normaly}
+            normal: {x: normalx, y: normaly},
         }; 
     } else {
-    // if there was a collision 
+        // if there was a collision 
         // calculate normal of collided surface
         if (txEntry > tyEntry) { 
             if (dxEntry < 0) { 
@@ -78,7 +78,7 @@ export function sweptAABB(a, av, b, bv) {
         } // return the time of collision
         return {
             time: entryTime,
-            normal: {x: normalx, y: normaly}
+            normal: {x: normalx, y: normaly},
         }; 
     }
 }
@@ -89,7 +89,7 @@ export function getBroadPhaseArea(a, av) {
         y: av.y > 0 ? a.y : a.y + av.y,
         width: av.x > 0 ? a.width + av.x : a.width - av.x,
         height: av.y > 0 ? a.height + av.y : a.height - av.y,
-    }
+    };
 }
 
 export function checkAABB(a, b) {

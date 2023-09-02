@@ -1,7 +1,7 @@
 import { Scene } from "../core/Scene.js";
 import { EntitySystem } from "../core/EntitySystem.js";
 import { Slime } from "../entities/Slime.js";
-import { Renderer } from "../core/renderer/Renderer.js"
+import { Renderer } from "../core/renderer/Renderer.js";
 import { Tile } from "../core/entity/Tile.js";
 import { TESTMAP, TileMap } from "../core/TileMap.js";
 import { Grass } from "../tiles/Grass.js";

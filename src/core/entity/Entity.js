@@ -6,7 +6,7 @@ export class Entity {
         this.id;
     }
 
-    static Component = class {}
+    static Component = class {};
     
     addComponent(component) {
         checkInstance(component, Entity.Component);
@@ -14,7 +14,7 @@ export class Entity {
     }
 
     getComponent(componentClass) {
-        for(const prop in this.components) {
+        for (const prop in this.components) {
             if (this.components[prop] instanceof componentClass) {
                 return this.components[prop];
             }
@@ -27,7 +27,7 @@ export class Entity {
     }
 
     hasComponent(componentClass) {
-        for(const prop in this.components) {
+        for (const prop in this.components) {
             if (this.components[prop] instanceof componentClass) {
                 return true;
             }

@@ -58,7 +58,7 @@ export class EntitySystem {
 
     static update() {
         this.#physicsEngine.update();
-        for (const [, components] of EntitySystem.getComponents([Update])) {
+        for (const [ , components ] of EntitySystem.getComponents([ Update ])) {
             components.Update.update();
         }
     }

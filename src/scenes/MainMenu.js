@@ -24,7 +24,7 @@ export class MainMenu extends Scene {
             GetScreenWidth() / 2,
             GetScreenHeight() / 2,
             40,
-            GRAY
+            GRAY,
         );
     }
 

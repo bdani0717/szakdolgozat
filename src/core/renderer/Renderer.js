@@ -7,7 +7,7 @@ export class Renderer {
         { x: 0, y: 0 },
         { x: 0, y: 0 },
         0,
-        1
+        1,
     );
     
     static renderWorld(method) {
@@ -17,9 +17,9 @@ export class Renderer {
         r.ClearBackground(r.BLACK);
         method();
 
-        let drawable = EntitySystem.getComponents([Render]);
-        drawable = [...drawable].sort((a, b) => a[1].Render.zIndex - b[1].Render.zIndex);
-        for (const [, components] of drawable) {
+        let drawable = EntitySystem.getComponents([ Render ]);
+        drawable = [ ...drawable ].sort((a, b) => a[1].Render.zIndex - b[1].Render.zIndex);
+        for (const [ , components ] of drawable) {
             components.Render.draw();
         }
 

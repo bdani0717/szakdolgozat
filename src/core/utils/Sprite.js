@@ -25,8 +25,8 @@ export class Sprite {
             x: 0,  
             y: 0,
             width: this.#frameWidth,
-            height: this.#frameHeight
-        }
+            height: this.#frameHeight,
+        };
     }
 
     #update() {
@@ -43,7 +43,7 @@ export class Sprite {
                 x: this.#currentFrame * this.#frameWidth,  
                 y: 0,
                 width: this.#frameWidth,
-                height: this.#frameHeight
+                height: this.#frameHeight,
             };                  
         }
     }
@@ -54,7 +54,7 @@ export class Sprite {
             x: position.x,  
             y: position.y,
             width: this.#frameWidth * scale,
-            height: this.#frameHeight * scale
+            height: this.#frameHeight * scale,
         };
         DrawTexturePro(this.#texture, this.#source, destination, {x: 0, y: 0}, rotation, WHITE);
     }

@@ -8,15 +8,15 @@ export class SpatialHashGrid {
     #grid;
     #queryId;
 
-    constructor(boundary, cellSize,) {
+    constructor(boundary, cellSize) {
         this.#position = {x: boundary.x, y: boundary.y};
         this.#size = {x: boundary.width, y: boundary.height};
         this.#cellSize = cellSize;
         this.#dimensions = {
             x: Math.ceil(this.#size.x / this.#cellSize),
             y: Math.ceil(this.#size.y / this.#cellSize),
-        }
-        this.#grid = [...Array(this.#dimensions.x)].map(() => [...Array(this.#dimensions.y)].map(() => []));
+        };
+        this.#grid = [ ...Array(this.#dimensions.x) ].map(() => [ ...Array(this.#dimensions.y) ].map(() => []));
         this.#queryId = 0;
         this.length = 0;
     }
@@ -27,8 +27,8 @@ export class SpatialHashGrid {
             size: size,
             indexes: {},
             queryId: -1,
-            data: data
-        }
+            data: data,
+        };
 
         this.#insertClient(client);
         this.length++;
@@ -102,7 +102,7 @@ export class SpatialHashGrid {
             xMin: math.clampFloor((position.x - this.#position.x) / this.#cellSize, 0, this.#dimensions.x - 1),
             yMin: math.clampFloor((position.y - this.#position.y) / this.#cellSize, 0, this.#dimensions.y - 1),
             xMax: math.clampFloor((position.x + size.x - this.#position.x) / this.#cellSize, 0, this.#dimensions.x - 1),
-            yMax: math.clampFloor((position.y + size.y - this.#position.y) / this.#cellSize, 0, this.#dimensions.y - 1)
+            yMax: math.clampFloor((position.y + size.y - this.#position.y) / this.#cellSize, 0, this.#dimensions.y - 1),
         };
 
         return indexes;        

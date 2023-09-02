@@ -56,16 +56,16 @@ export class EntityRegistry {
 
     #filter(components = []) {
         return new Map(
-            [...this.#entities].filter(([, entity]) => (
+            [ ...this.#entities ].filter(([ , entity ]) => (
                 components.every((comp) => {
-                    for(const prop in entity.components) {
+                    for (const prop in entity.components) {
                         if (entity.components[prop] instanceof comp) {
                             return true;
                         }
                     }
                     return false;
                 })
-            ))
+            )),
         );
     }
 
@@ -74,14 +74,14 @@ export class EntityRegistry {
     }
 
     getComponents(components = []) {
-        return new Map([...this.#filter(components)]
-            .map(([id, entity]) => {
+        return new Map([ ...this.#filter(components) ]
+            .map(([ id, entity ]) => {
                 const entityComponents = {};
                 components.forEach((comp) => {
                     entityComponents[comp.name] = entity.getComponent(comp);
                 });
-                return [id, entityComponents];
-            })
+                return [ id, entityComponents ];
+            }),
         );
     }
     

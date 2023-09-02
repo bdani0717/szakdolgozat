@@ -14,6 +14,6 @@ export const Vector = (function() {
                 x: vector.x * value,
                 y: vector.y * value,
             };
-        }
+        },
     };
 })();

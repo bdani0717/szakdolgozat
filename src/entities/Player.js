@@ -32,7 +32,7 @@ export class PlayerRender extends Render {
             
             DrawRectangleLinesEx(transform, 2, body.isColliding ? WHITE : ORANGE);
             self.animations["idleLeft"].draw({x: transform.position.x, y: transform.position.y - 38});
-        }
+        };
     }
 }
 
@@ -57,20 +57,20 @@ export class PlayerUpdate extends Update{
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
                 const projectalVelocity = {
                     x: GetMouseX() - body.transform.x, 
-                    y: GetMouseY() - body.transform.y 
-                }
+                    y: GetMouseY() - body.transform.y, 
+                };
                 
                 for (let j = 0; j < 1; j++) {
                     for (let i = 0; i < 1; i++) {
                         EntitySystem.createEntity("Projectal", 
                             body.transform.x + i,
                             body.transform.y + i,
-                            projectalVelocity.x ,
-                            projectalVelocity.y 
+                            projectalVelocity.x,
+                            projectalVelocity.y, 
                         );
                     }
                 }
             }
-        }
+        };
     }
 }

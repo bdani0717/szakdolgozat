@@ -16,7 +16,7 @@ export class Tile extends Entity {
             x * this.tileSize,
             y * this.tileSize,
             this.tileSize,
-            this.tileSize
+            this.tileSize,
         ));
         this.addComponent(new TileRender(this));
         this.addComponent(new StaticBody(this.getComponent(Transform), friction));
@@ -29,6 +29,6 @@ export class TileRender extends Render {
         this.draw = () => {
             const position = self.getComponent(StaticBody).transform.position;
             self.sprites["tileSprite"].draw(position, 3);
-        }
+        };
     }
 }

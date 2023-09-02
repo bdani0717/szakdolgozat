@@ -30,22 +30,22 @@ export class CollisionResolver {
             this.force = {x: 0, y: 0};
             
             switch (this.a.type) {
-                case AreaBody.TYPE:
-                    break;
-                case RigidBody.TYPE:
-                    this.#applyFriction();
-                    this.force = this.#calculateCollisionForce();
-                    this.a.applyForce(this.force);
-                    if (this.b.type === RigidBody.TYPE) {
-                        this.b.applyForce(Vector.scale(this.force, -1));
-                    }
-                    break;
-                case ProjectalBody.TYPE:
-                    break;
-                case StaticBody.TYPE:
-                    break;
-                case KinematicBody.TYPE:
-                    break;
+            case AreaBody.TYPE:
+                break;
+            case RigidBody.TYPE:
+                this.#applyFriction();
+                this.force = this.#calculateCollisionForce();
+                this.a.applyForce(this.force);
+                if (this.b.type === RigidBody.TYPE) {
+                    this.b.applyForce(Vector.scale(this.force, -1));
+                }
+                break;
+            case ProjectalBody.TYPE:
+                break;
+            case StaticBody.TYPE:
+                break;
+            case KinematicBody.TYPE:
+                break;
             }
 
             return collision.time < 1;
@@ -82,7 +82,7 @@ export class CollisionResolver {
 
         return {
             x: impulse * this.normal.x,
-            y: impulse * this.normal.y
+            y: impulse * this.normal.y,
         };
     }
 }

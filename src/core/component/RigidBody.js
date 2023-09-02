@@ -16,7 +16,7 @@ export class RigidBody extends Body {
         const acceleration = {
             x: force.x / this.mass,
             y: force.y / this.mass,
-        }
+        };
         this.velocity.x += acceleration.x;
         this.velocity.y += acceleration.y;
     }

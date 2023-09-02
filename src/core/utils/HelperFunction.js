@@ -25,5 +25,5 @@ export const math = (function() {
         clamp: function(x, min, max) {
             return Math.min(Math.max(x, min), max);
         },
-    }
+    };
 })();

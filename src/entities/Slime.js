@@ -11,7 +11,7 @@ export class Slime extends Entity {
         super();
         this.addComponent(new Transform(x, y, 48, 48));
         this.addComponent(new SlimeRender(this));
-        this.addComponent(new RigidBody(this.getComponent(Transform), {x: GetRandomValue(-30,30), y: GetRandomValue(-30,30)}, 0.3, 10));
+        this.addComponent(new RigidBody(this.getComponent(Transform), {x: GetRandomValue(-30, 30), y: GetRandomValue(-30, 30)}, 0.3, 10));
         this.addComponent(new Update(() => this.update()));
     }
 
@@ -33,6 +33,6 @@ export class SlimeRender extends Render {
             const transform = self.getComponent(Transform);
 
             DrawRectangleLinesEx(transform, 2, body.isColliding ? RED : BLUE);
-        }
+        };
     }
 }
