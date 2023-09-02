@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "raylib": "*"
+    },
+    "scripts": {
+        "start": "node index.js"
+    },
+    "type": "module",
+    "devDependencies": {
+        "eslint": "^8.44.0"
+    }
+}
