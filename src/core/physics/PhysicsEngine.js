@@ -9,6 +9,7 @@ import { AreaBody } from "../component/AreaBody.js";
 import { Body } from "../component/Body.js";
 import { EntitySystem } from "../EntitySystem.js";
 import { GetFrameTime } from "../Function.js";
+import { Vector } from "../utils/Vector.js";
 
 
 export class PhysicsEngine {
@@ -169,8 +170,9 @@ export class PhysicsEngine {
         const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
         const transform = body.transform;
         const velocity = body.velocity;
-        const searchArea = getBroadPhaseArea(transform, {x: velocity.x * GetFrameTime(), y: velocity.y * GetFrameTime()});
+        const searchArea = getBroadPhaseArea(transform, Vector.scale(velocity, GetFrameTime()));
         
+        // No need to check collisions against projectals
         const clientsInRange = [
             ...this.#containers[RigidBody.TYPE].find(searchArea),
             ...this.#containers[KinematicBody.TYPE].find(searchArea),
@@ -186,14 +188,20 @@ export class PhysicsEngine {
 
         for (const otherClient of clientsInRange) {
             const otherId = otherClient.data.entityId;
-            const other = this.#entityRegistry.getEntity(otherId).getComponent(Body);
+            const otherBody = this.#entityRegistry.getEntity(otherId).getComponent(Body);
             if (otherId !== entityId) {
-                const collision = new CollisionResolver(body, other);
-                if (collision.resolve()) {
-                    body.collisions.push(otherId);
-                    body.isColliding = true;
-                    other.collisions.push(entityId);
-                    other.isColliding = true;
+                const collision = new CollisionResolver(body, otherBody);
+                const collisionData = collision.resolve();
+
+                if (collisionData.collision) {
+                    body.collisions.push({
+                        entityId: otherId,
+                        normal: collisionData.normal,
+                    });
+                    otherBody.collisions.push({
+                        entityId: entityId,
+                        normal: Vector.scale(collisionData.normal, -1),
+                    });
                 }
             }
         }

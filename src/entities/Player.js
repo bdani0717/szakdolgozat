@@ -30,7 +30,7 @@ export class PlayerRender extends Render {
             const body = self.getComponent(RigidBody);
             const transform = body.transform;
             
-            DrawRectangleLinesEx(transform, 2, body.isColliding ? WHITE : ORANGE);
+            DrawRectangleLinesEx(transform, 2, body.isHit ? WHITE : ORANGE);
             self.animations["idleLeft"].draw({x: transform.position.x, y: transform.position.y - 38});
         };
     }

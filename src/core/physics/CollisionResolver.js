@@ -23,7 +23,10 @@ export class CollisionResolver {
             const collision = sweptAABB(this.a.transform, scaledVelA, this.b.transform, scaledVelB);
             
             if (collision >= 1) {
-                return false;
+                return {
+                    collision: false,
+                    normal: {x: 0, y: 0},
+                };
             }
 
             this.normal = collision.normal;
@@ -44,8 +47,16 @@ export class CollisionResolver {
                 break;
             }
 
-            return collision.time < 1;
+            return {
+                collision: collision.time < 1,
+                normal: this.normal,
+            };
         }
+        
+        return {
+            collision: false,
+            normal: {x: 0, y: 0},
+        };
     }
 
     #applyFriction() {

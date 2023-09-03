@@ -32,7 +32,7 @@ export class SlimeRender extends Render {
             const body = self.getComponent(RigidBody);
             const transform = self.getComponent(Transform);
 
-            DrawRectangleLinesEx(transform, 2, body.isColliding ? RED : BLUE);
+            DrawRectangleLinesEx(transform, 2, body.isHit ? RED : BLUE);
         };
     }
 }

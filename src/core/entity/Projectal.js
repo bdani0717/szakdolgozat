@@ -22,7 +22,7 @@ export class PorjectalUpdate extends Update {
         super();
         this.update = () => {
             const body = self.getComponent(ProjectalBody);
-            if (body.isColliding) {
+            if (body.isHit) {
                 EntitySystem.removeEntity(self.id);
             }
         };

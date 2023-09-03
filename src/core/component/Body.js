@@ -12,8 +12,11 @@ export class Body extends Entity.Component {
         this.mass = 0;
         this.friction = Math.max(friction, 0);
 
-        this.isColliding = false;
         this.collisions = [];
+    }
+
+    get isHit() {
+        return this.collisions.length > 0;
     }
 
     resolveCollision(other, normal) {}
