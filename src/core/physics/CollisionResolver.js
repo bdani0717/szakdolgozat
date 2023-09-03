@@ -31,12 +31,15 @@ export class CollisionResolver {
 
             this.normal = collision.normal;
             this.force = {x: 0, y: 0};
+
+            if (this.a.useFriction) {
+                this.#applyFriction();
+            }
             
             switch (this.a.type) {
             case AreaBody.TYPE:
                 break;
             case RigidBody.TYPE:
-                this.#applyFriction();
                 this.a.resolveCollision(this.b, this.normal);
                 break;
             case ProjectalBody.TYPE:
@@ -52,7 +55,7 @@ export class CollisionResolver {
                 normal: this.normal,
             };
         }
-        
+
         return {
             collision: false,
             normal: {x: 0, y: 0},

@@ -210,9 +210,17 @@ export class PhysicsEngine {
     }
 
     #applyGravity() {
-        for (const [ , client ] of this.#clients[RigidBody.TYPE]) {
+        const allClients = [
+            ...this.#clients[RigidBody.TYPE], 
+            ...this.#clients[KinematicBody.TYPE],
+            ...this.#clients[ProjectalBody.TYPE],
+        ];
+
+        for (const [ , client ] of allClients) {
             const body = this.#entityRegistry.getEntity(client.data.entityId).getComponent(Body);
-            body.velocity.y += this.gravity;
+            if (body.useGravity) { 
+                body.velocity.y += this.gravity; 
+            }
         }
     }
 }

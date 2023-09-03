@@ -12,6 +12,8 @@ export class RigidBody extends Body {
         this.velocity = velocity;
         this.restitution = restitution;
         this.mass = mass;
+        this.useGravity = true;
+        this.useFriction = true;
     }
 
     applyForce(force) {
