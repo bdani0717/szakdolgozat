@@ -1,9 +1,4 @@
 import { GetFrameTime } from "../Function.js";
-import { AreaBody } from "../component/AreaBody.js";
-import { KinematicBody } from "../component/KinematicBody.js";
-import { ProjectalBody } from "../component/ProjectalBody.js";
-import { RigidBody } from "../component/RigidBody.js";
-import { StaticBody } from "../component/StaticBody.js";
 import { Vector } from "../utils/Vector.js";
 import { checkAABB, getBroadPhaseArea, sweptAABB } from "./Collision.js";
 
@@ -36,19 +31,7 @@ export class CollisionResolver {
                 this.#applyFriction();
             }
             
-            switch (this.a.type) {
-            case AreaBody.TYPE:
-                break;
-            case RigidBody.TYPE:
-                this.a.resolveCollision(this.b, this.normal);
-                break;
-            case ProjectalBody.TYPE:
-                break;
-            case StaticBody.TYPE:
-                break;
-            case KinematicBody.TYPE:
-                break;
-            }
+            this.a.resolveCollision(this.b, this.normal);
 
             return {
                 collision: collision.time < 1,
