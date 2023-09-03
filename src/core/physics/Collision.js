@@ -1,12 +1,12 @@
 import { Vector } from "../utils/Vector.js";
 
-export function sweptAABB(a, av, b, bv) {
+export function sweptAABB(a, velocityA, b, velocityB) {
     let dxEntry, dyEntry; 
     let dxExit, dyExit;
     let normalx, normaly;
     const rv = {
-        x: av.x - bv.x,
-        y: av.y - bv.y,
+        x: velocityA.x - velocityB.x,
+        y: velocityA.y - velocityB.y,
     };
 
     // find the distance between the objects on the near and far sides for both x and y 
@@ -85,12 +85,12 @@ export function sweptAABB(a, av, b, bv) {
     }
 }
 
-export function getBroadPhaseArea(a, av) {
+export function getBroadPhaseArea(a, velocityA) {
     return {
-        x: av.x > 0 ? a.x : a.x + av.x,
-        y: av.y > 0 ? a.y : a.y + av.y,
-        width: av.x > 0 ? a.width + av.x : a.width - av.x,
-        height: av.y > 0 ? a.height + av.y : a.height - av.y,
+        x: velocityA.x > 0 ? a.x : a.x + velocityA.x,
+        y: velocityA.y > 0 ? a.y : a.y + velocityA.y,
+        width: velocityA.x > 0 ? a.width + velocityA.x : a.width - velocityA.x,
+        height: velocityA.y > 0 ? a.height + velocityA.y : a.height - velocityA.y,
     };
 }
 
