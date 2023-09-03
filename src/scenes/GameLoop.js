@@ -12,6 +12,7 @@ import { Projectal } from "../core/entity/Projectal.js";
 import { DrawText, IsKeyDown, GetMouseWheelMove, GetFPS, GetMouseDelta, ClearBackground } from "../core/Function.js";
 import { KEY_LEFT_CONTROL, SKYBLUE, WHITE } from "../core/Enums.js";
 import { SoundRegistry } from "../core/registry/SoundRegistry.js";
+import { PlayerKinematic } from "../entities/PlayerKinematic.js";
 
 export class GameLoop extends Scene {
     constructor() {
@@ -33,6 +34,7 @@ export class GameLoop extends Scene {
         EntitySystem
             .registerEntity(Slime)
             .registerEntity(Player)
+            .registerEntity(PlayerKinematic)
             .registerEntity(Tile)
             .registerEntity(Grass)
             .registerEntity(Stone)
@@ -59,6 +61,7 @@ export class GameLoop extends Scene {
 
     onSceneLoad() {
         EntitySystem.createEntity("Player", 700, 0);
+        EntitySystem.createEntity("PlayerKinematic", 900, 0);
         EntitySystem.createEntity("Slime", 200, 700);
         EntitySystem.createEntity("Slime", 300, 700);
         EntitySystem.createEntity("Slime", 400, 700);
