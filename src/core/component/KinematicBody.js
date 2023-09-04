@@ -1,4 +1,6 @@
+import { Vector } from "../utils/Vector.js";
 import { Body } from "./Body.js";
+import { RigidBody } from "./RigidBody.js";
 
 export class KinematicBody extends Body {
     static TYPE = "kinematicbody";
@@ -15,7 +17,17 @@ export class KinematicBody extends Body {
     }
 
     resolveCollision(other, normal) {
-        const offset = 0.001;
+        const offset = 0.01;
+
+        if (other.type === RigidBody.TYPE) {       
+            const impulseOther = Vector.scale(other.velocity, other.mass);
+            const impulse = Vector.scale(this.velocity, other.mass);
+            let force = Vector.add(Vector.scale(impulseOther, -1), impulse);
+            force.x *= normal.x !== 0;
+            force.y *= normal.y !== 0;
+            other.applyForce(force);
+            return;
+        }
 
         if (normal.x === 1) {
             this.transform.x = other.transform.x + other.transform.width + offset;

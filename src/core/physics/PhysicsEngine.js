@@ -118,19 +118,24 @@ export class PhysicsEngine {
     #handleCollisions() {
         this.#resetCollisions();
         
+        this.#handleCollisionsByType(KinematicBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
+        
         for (let i = 0; i < this.#iterations; i++) {
-            this.#handleCollisionsByType(RigidBody.TYPE);
+            this.#handleCollisionsByType(RigidBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
         }
+        
+        this.#handleCollisionsByType(KinematicBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
 
-        this.#handleCollisionsByType(ProjectalBody.TYPE);
-        this.#handleCollisionsByType(KinematicBody.TYPE);
-        this.#handleCollisionsByType(StaticBody.TYPE);
-        this.#handleCollisionsByType(AreaBody.TYPE);
+        this.#handleCollisionsByType(ProjectalBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
+
+        this.#handleCollisionsByType(AreaBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, ProjectalBody.TYPE ]);
     }
 
-    #handleCollisionsByType(type) {
-        for (const [ , client ] of this.#clients[type]) {
-            this.#handleCollisionEntity(client);
+    #handleCollisionsByType(typeA, types) {
+        for (const typeB of types) {
+            for (const [ , client ] of this.#clients[typeA]) {
+                this.#handleCollisionEntity(client, typeB);
+            }
         }
     }
     
@@ -165,20 +170,15 @@ export class PhysicsEngine {
         }
     }
 
-    #handleCollisionEntity(client) {
+    #handleCollisionEntity(client, type) {
         const entityId = client.data.entityId;
         const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
         const transform = body.transform;
         const velocity = body.velocity;
         const searchArea = getBroadPhaseArea(transform, Vector.scale(velocity, GetFrameTime()));
-        
+
         // No need to check collisions against projectals
-        const clientsInRange = [
-            ...this.#containers[RigidBody.TYPE].find(searchArea),
-            ...this.#containers[KinematicBody.TYPE].find(searchArea),
-            ...this.#containers[AreaBody.TYPE].find(searchArea),
-            ...this.#containers[StaticBody.TYPE].find(searchArea),
-        ];
+        const clientsInRange = [ ...this.#containers[type].find(searchArea) ];
 
         clientsInRange.sort((a, b) => {
             const distanceA = Math.pow(transform.position.x - a.position.x, 2) + Math.pow(transform.position.y - a.position.y, 2);

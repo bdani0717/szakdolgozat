@@ -65,10 +65,10 @@ export class GameLoop extends Scene {
         EntitySystem.createEntity("Slime", 200, 700);
         EntitySystem.createEntity("Slime", 300, 700);
         EntitySystem.createEntity("Slime", 400, 700);
-        EntitySystem.createEntity("Slime", 500, 400);
-        EntitySystem.createEntity("Slime", 500, 500);
-        EntitySystem.createEntity("Slime", 500, 600);
-        EntitySystem.createEntity("Slime", 500, 700);
+        // EntitySystem.createEntity("Slime", 500, 400);
+        // EntitySystem.createEntity("Slime", 500, 500);
+        // EntitySystem.createEntity("Slime", 500, 600);
+        // EntitySystem.createEntity("Slime", 500, 700);
 
         new TileMap(TESTMAP, EntitySystem);
     }

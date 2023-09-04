@@ -6,6 +6,18 @@ export const Vector = (function() {
                 y: a.y - b.y,
             };
         },
+        add: function(a, b) {
+            return {
+                x: a.x + b.x,
+                y: a.y + b.y,
+            };
+        },
+        multiply: function(a, b) {
+            return {
+                x: a.x * b.x,
+                y: a.y * b.y,
+            };
+        },
         magnitude: function(vector) {
             return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
         },
@@ -13,6 +25,15 @@ export const Vector = (function() {
             return {
                 x: vector.x * value,
                 y: vector.y * value,
+            };
+        },
+        dot: function(a, b) {
+            return a.x * b.x + a.y * b.y;
+        },
+        negate: function(a) {
+            return {
+                x: -a.x,
+                y: -a.y,
             };
         },
     };

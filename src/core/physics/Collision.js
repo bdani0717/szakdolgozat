@@ -1,5 +1,3 @@
-import { Vector } from "../utils/Vector.js";
-
 export function sweptAABB(a, velocityA, b, velocityB) {
     let dxEntry, dyEntry; 
     let dxExit, dyExit;
@@ -96,22 +94,4 @@ export function getBroadPhaseArea(a, velocityA) {
 
 export function checkAABB(a, b) {
     return !(a.x + a.width < b.x || a.x > b.x + b.width || a.y + a.height < b.y || a.y > b.y + b.height); 
-}
-
-export function getCollisionForce(a, b, normal) {
-    const relativeVelocity = Vector.subtract(a.velocity, b.velocity);
-    const velocityAlongNormal = relativeVelocity.x * normal.x + relativeVelocity.y * normal.y;
-
-    if (velocityAlongNormal > 0) {
-        // They are moving apart
-        return;
-    }
-
-    let impulse = -(Math.max(1 - Math.min(a.restitution, b.restitution), 0)) * velocityAlongNormal;
-    impulse *= a.mass + b.mass;
-
-    return {
-        x: impulse * normal.x,
-        y: impulse * normal.y,
-    };
 }
