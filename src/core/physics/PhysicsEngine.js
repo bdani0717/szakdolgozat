@@ -18,7 +18,7 @@ export class PhysicsEngine {
     #containers = {};
     #iterations;
 
-    constructor(entityRegistry, iterations, gravity = 0) {
+    constructor(entityRegistry, iterations, gravity = {x: 0, y: 0}) {
         this.#entityRegistry = entityRegistry;
         this.#iterations = iterations;
         this.gravity = gravity;
@@ -165,7 +165,7 @@ export class PhysicsEngine {
             const entityId = client.data.entityId;
             const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
             const velocity = body.velocity;
-            body.transform.move(velocity.x * GetFrameTime(), velocity.y * GetFrameTime());
+            body.transform.move(Vector.scale(velocity, GetFrameTime()));
             this.#updateClientById(entityId, body);
         }
     }
@@ -219,7 +219,7 @@ export class PhysicsEngine {
         for (const [ , client ] of allClients) {
             const body = this.#entityRegistry.getEntity(client.data.entityId).getComponent(Body);
             if (body.useGravity) { 
-                body.velocity.y += this.gravity; 
+                body.velocity = Vector.add(body.velocity, this.gravity);
             }
         }
     }

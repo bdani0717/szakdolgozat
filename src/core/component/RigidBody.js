@@ -17,12 +17,8 @@ export class RigidBody extends Body {
     }
 
     applyForce(force) {
-        const acceleration = {
-            x: force.x / this.mass,
-            y: force.y / this.mass,
-        };
-        this.velocity.x += acceleration.x;
-        this.velocity.y += acceleration.y;
+        const acceleration = Vector.divide(force, this.mass);
+        this.velocity = Vector.add(this.velocity, acceleration);
     }
 
     updatePosition() {
@@ -43,10 +39,10 @@ export class RigidBody extends Body {
         j /= (1 / this.mass) + ((1 / other.mass) || 0);
         const impulse = Vector.scale(normal, j);
 
-        this.velocity = Vector.add(this.velocity, Vector.scale(impulse, 1 / this.mass));
+        this.velocity = Vector.add(this.velocity, Vector.divide(impulse, this.mass));
 
         if (other.type === RigidBody.TYPE) {
-            other.velocity = Vector.subtract(other.velocity, Vector.scale(impulse, 1 / other.mass));
+            other.velocity = Vector.subtract(other.velocity, Vector.divide(impulse, other.mass));
         }
 
         if (other.type === KinematicBody.TYPE) {

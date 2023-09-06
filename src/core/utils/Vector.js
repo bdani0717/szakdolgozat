@@ -12,6 +12,12 @@ export const Vector = (function() {
                 y: a.y + b.y,
             };
         },
+        addValue: function(a, value) {
+            return {
+                x: a.x + value,
+                y: a.y + value,
+            };
+        },
         multiply: function(a, b) {
             return {
                 x: a.x * b.x,
@@ -25,6 +31,12 @@ export const Vector = (function() {
             return {
                 x: vector.x * value,
                 y: vector.y * value,
+            };
+        },
+        divide: function(a, value) {
+            return {
+                x: a.x / value,
+                y: a.y / value,
             };
         },
         dot: function(a, b) {

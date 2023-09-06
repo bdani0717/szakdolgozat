@@ -54,7 +54,8 @@ export class CollisionResolver {
             x: -this.normal.y,
             y: this.normal.x,
         };
-        const velocityAlongTangent = this.a.velocity.x * tangentVector.x + this.a.velocity.y * tangentVector.y;
+
+        const velocityAlongTangent = Vector.dot(this.a.velocity, tangentVector);
         const impulse = -this.b.friction * velocityAlongTangent;
         const frictionV = Vector.scale(tangentVector, impulse);
         

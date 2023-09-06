@@ -27,8 +27,8 @@ export class Transform extends Entity.Component {
         this.height = size.y;
     }
 
-    move(x, y) {
-        this.x += x;
-        this.y += y;
+    move(vector) {
+        this.x += vector.x;
+        this.y += vector.y;
     }
 }

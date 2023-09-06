@@ -1,11 +1,11 @@
+import { Vector } from "../utils/Vector.js";
+
 export function sweptAABB(a, velocityA, b, velocityB) {
     let dxEntry, dyEntry; 
     let dxExit, dyExit;
     let normalx, normaly;
-    const rv = {
-        x: velocityA.x - velocityB.x,
-        y: velocityA.y - velocityB.y,
-    };
+
+    const rv = Vector.subtract(velocityA, velocityB);
 
     // find the distance between the objects on the near and far sides for both x and y 
     if (rv.x > 0) { 
