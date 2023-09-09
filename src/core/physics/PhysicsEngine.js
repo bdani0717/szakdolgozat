@@ -219,7 +219,7 @@ export class PhysicsEngine {
         for (const [ , client ] of allClients) {
             const body = this.#entityRegistry.getEntity(client.data.entityId).getComponent(Body);
             if (body.useGravity) { 
-                body.velocity = Vector.add(body.velocity, this.gravity);
+                body.applyForce(Vector.scale(this.gravity, GetFrameTime()));
             }
         }
     }

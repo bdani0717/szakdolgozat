@@ -5,7 +5,7 @@ import { RigidBody } from "../core/component/RigidBody.js";
 import { Update } from "../core/component/Update.js";
 import { Sprite } from "../core/utils/Sprite.js";
 import { EntitySystem } from "../core/EntitySystem.js";
-import { DrawRectangleLinesEx, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../core/Function.js";
+import { DrawRectangleLinesEx, GetFrameTime, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../core/Function.js";
 import { KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W, KEY_X, MOUSE_BUTTON_LEFT, ORANGE, WHITE } from "../core/Enums.js";
 import { SoundRegistry } from "../core/registry/SoundRegistry.js";
 
@@ -40,14 +40,14 @@ export class PlayerUpdate extends Update{
     constructor(self) {
         super();
         this.update = () => {
-            const speed = 10;
+            const speed = 1000;
             const body = self.getComponent(RigidBody);
             const velocity = body.velocity;
 
-            if (IsKeyDown(KEY_A)) { velocity.x -= speed; }
-            if (IsKeyDown(KEY_D)) { velocity.x += speed; }
-            if (IsKeyDown(KEY_W)) { velocity.y -= speed; }
-            if (IsKeyDown(KEY_S)) { velocity.y += speed; }
+            if (IsKeyDown(KEY_A)) { velocity.x -= speed * GetFrameTime(); }
+            if (IsKeyDown(KEY_D)) { velocity.x += speed * GetFrameTime(); }
+            if (IsKeyDown(KEY_W)) { velocity.y -= speed * GetFrameTime(); }
+            if (IsKeyDown(KEY_S)) { velocity.y += speed * GetFrameTime(); }
             if (IsKeyPressed(KEY_SPACE)) { 
                 velocity.y = -600;
                 SoundRegistry.playSound("coin");

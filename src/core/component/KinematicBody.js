@@ -16,6 +16,11 @@ export class KinematicBody extends Body {
         this.useFriction = useFriction;
     }
 
+    applyForce(force) {
+        const acceleration = Vector.divide(force, this.mass);
+        this.velocity = Vector.add(this.velocity, acceleration);
+    }
+
     resolveCollision(other, normal) {
         const offset = 0.01;
 

@@ -59,7 +59,7 @@ export class CollisionResolver {
         const impulse = -this.b.friction * velocityAlongTangent;
         const frictionV = Vector.scale(tangentVector, impulse);
         
-        this.a.applyForce(frictionV);
+        this.a.applyForce(Vector.scale(frictionV, GetFrameTime()));
     }
 }
 
