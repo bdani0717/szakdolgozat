@@ -9,6 +9,8 @@ import { DrawRectangleLinesEx, GetFrameTime, GetMouseX, GetMouseY, IsKeyDown, Is
 import { KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W, KEY_X, MOUSE_BUTTON_LEFT, ORANGE, WHITE } from "../core/Enums.js";
 import { SoundRegistry } from "../core/registry/SoundRegistry.js";
 
+import ESSerializer from "esserializer";
+
 export class Player extends Entity {
     constructor(x, y) {
         super();
@@ -19,6 +21,15 @@ export class Player extends Entity {
         this.animations = {
             "idleLeft": new Sprite("playerIdleLeft", 6, 125),
         };
+    }
+
+    deserialize(data) {
+        const player = new Player(0, 0);
+        player.addComponent(data.getComponent(Transform));
+        player.addComponent(data.getComponent(RigidBody));
+        player.getComponent(RigidBody).transform = player.getComponent(Transform);
+
+        return player;
     }
 }
 
@@ -74,3 +85,5 @@ export class PlayerUpdate extends Update{
         };
     }
 }
+
+ESSerializer.registerClasses([ Player, PlayerRender, PlayerUpdate, Sprite ]);

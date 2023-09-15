@@ -1,4 +1,5 @@
 import { Entity } from "../entity/Entity.js";
+import Serializer from "esserializer";
 
 export class Body extends Entity.Component {
     static TYPE = "";
@@ -19,3 +20,5 @@ export class Body extends Entity.Component {
 
     resolveCollision(other, normal) {}
 }
+
+Serializer.registerClass(Body);

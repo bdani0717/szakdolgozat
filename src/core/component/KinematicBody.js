@@ -1,6 +1,7 @@
 import { Vector } from "../utils/Vector.js";
 import { Body } from "./Body.js";
 import { RigidBody } from "./RigidBody.js";
+import Serializer from "esserializer";
 
 export class KinematicBody extends Body {
     static TYPE = "kinematicbody";
@@ -50,3 +51,5 @@ export class KinematicBody extends Body {
         }
     }
 }    
+
+Serializer.registerClass(KinematicBody);

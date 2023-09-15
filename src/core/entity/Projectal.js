@@ -6,6 +6,7 @@ import { ProjectalBody } from "../component/ProjectalBody.js";
 import { EntitySystem } from "../EntitySystem.js";
 import { DrawRectangleRec } from "../Function.js";
 import { WHITE } from "../Enums.js";
+import Serializer from "esserializer";
 
 export class Projectal extends Entity {
     constructor(x, y, velX, velY) {
@@ -41,3 +42,7 @@ export class ProjectalRenderer extends Render {
         };
     }
 }
+
+Serializer.registerClass(Projectal);
+Serializer.registerClass(PorjectalUpdate);
+Serializer.registerClass(ProjectalRenderer);

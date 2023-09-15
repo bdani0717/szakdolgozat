@@ -1,4 +1,5 @@
 import { checkInstance } from "../utils/HelperFunction.js";
+import Serializer from "esserializer";
 
 export class Entity {
     constructor() {
@@ -6,7 +7,10 @@ export class Entity {
         this.id;
     }
 
-    static Component = class {};
+    static Component = class {
+        serialize() {}
+        deserialize() {}
+    };
     
     addComponent(component) {
         checkInstance(component, Entity.Component);
@@ -34,5 +38,13 @@ export class Entity {
         }
         return false;
     }
+
+    serialize() {
+        return Serializer.serialize(this);
+    }
+
+    deserialize(data) {}
 }
 
+Serializer.registerClass(Entity);
+Serializer.registerClass(Entity.Component);

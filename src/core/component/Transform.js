@@ -1,4 +1,5 @@
 import { Entity } from "../entity/Entity.js";
+import Serializer from "esserializer";
 
 export class Transform extends Entity.Component {
     constructor(x, y, width, height) {
@@ -32,3 +33,5 @@ export class Transform extends Entity.Component {
         this.y += vector.y;
     }
 }
+
+Serializer.registerClass(Transform);

@@ -1,4 +1,5 @@
 import { Body } from "./Body.js";
+import Serializer from "esserializer";
 
 export class StaticBody extends Body {
     static TYPE = "staticbody";
@@ -9,3 +10,5 @@ export class StaticBody extends Body {
         this.transform = transform;
     }
 }    
+
+Serializer.registerClass(StaticBody);

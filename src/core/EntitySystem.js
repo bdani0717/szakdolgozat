@@ -51,6 +51,18 @@ export class EntitySystem {
         return this.#entityRegistry.size;
     }
 
+    static serialize() {
+        return {
+            entityRegistry: this.#entityRegistry.serialize(),
+            physicsEngine: this.#physicsEngine.serialize(),
+        };
+    }
+
+    static deserialize(data) {
+        this.#entityRegistry.deserialize(data.entityRegistry);
+        this.#physicsEngine.deserialize(this.#entityRegistry, data.physicsEngine);
+    }
+
     static clear() {
         this.#entityRegistry.clear();
         this.#physicsEngine.clear();

@@ -26,6 +26,21 @@ export class PhysicsEngine {
         this.#initClientsContainers({x: 0, y: 0, width: 2000, height: 1200});
     }
 
+    deserialize(entityRegistry, data) {
+        this.#entityRegistry = entityRegistry;
+        this.#iterations = data.iterations;
+        this.gravity = data.gravity;
+
+        this.#initClientsContainers({x: 0, y: 0, width: 2000, height: 1200});
+
+        [ ...entityRegistry.getComponents([ Body ]) ].forEach(([ id, comp ]) => {            
+            const body = comp.Body;
+            const transform = body.transform;
+            const client = this.#containers[body.type].newClient(transform.position, transform.size, {entityId: id});
+            this.#clients[body.type].set(id, client);
+        });
+    }
+
     update() {
         this.#applyGravity();
         this.#handleCollisions();
@@ -222,5 +237,14 @@ export class PhysicsEngine {
                 body.applyForce(Vector.scale(this.gravity, GetFrameTime()));
             }
         }
+    }
+
+    serialize() {
+        const serializedPhysicsEngine = {
+            gravity: this.gravity,
+            iterations: this.#iterations,
+        };
+
+        return serializedPhysicsEngine;
     }
 }

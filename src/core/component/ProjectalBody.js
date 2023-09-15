@@ -1,4 +1,5 @@
 import { Body } from "./Body.js";
+import Serializer from "esserializer";
 
 export class ProjectalBody extends Body {
     static TYPE = "projectalbody";
@@ -11,3 +12,5 @@ export class ProjectalBody extends Body {
         this.useGravity = useGravity;
     }
 }
+
+Serializer.registerClass(ProjectalBody);

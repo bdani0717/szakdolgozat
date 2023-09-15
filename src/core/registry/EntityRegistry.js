@@ -1,5 +1,6 @@
 import { Entity } from "../entity/Entity.js";
 import { checkClass } from "../utils/HelperFunction.js";
+import Serializer from "esserializer";
 
 export class EntityRegistry {
     #entities;
@@ -26,6 +27,7 @@ export class EntityRegistry {
         checkClass(entityClass, Entity);
 
         this.#entityTypes.set(entityName, entityClass);
+        Serializer.registerClass(entityClass);
     }
 
     createEntity(entityClassName, ...args) {
@@ -83,6 +85,30 @@ export class EntityRegistry {
                 return [ id, entityComponents ];
             }),
         );
+    }
+
+    serialize() {
+        const serializedEntites = [ ...this.#entities ].map(([ id, entity ]) => {
+            return { id: id, entity: entity.serialize() };
+        });
+
+        const serializedEntityRegistry = {
+            entities: serializedEntites,
+            entityTypes: this.#entityTypes,
+            lastId: this.#lastId,
+        };
+
+        return serializedEntityRegistry;
+    }
+
+    deserialize(data) {
+        this.#lastId = data.lastId;
+        this.#entityTypes = data.entityTypes;
+        this.#entities = new Map();
+        for (const {id, entity: entityData} of data.entities) {
+            const entity = Serializer.deserialize(entityData);
+            this.#entities.set(id, entity.deserialize(entity));
+        }
     }
     
     clear() {

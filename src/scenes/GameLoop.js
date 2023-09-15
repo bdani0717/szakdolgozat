@@ -9,8 +9,8 @@ import { Stone } from "../tiles/Stone.js";
 import { Player } from "../entities/Player.js";
 import { TextureRegistry } from "../core/registry/TextureRegistry.js";
 import { Projectal } from "../core/entity/Projectal.js";
-import { DrawText, IsKeyDown, GetMouseWheelMove, GetFPS, GetMouseDelta, ClearBackground } from "../core/Function.js";
-import { KEY_LEFT_CONTROL, SKYBLUE, WHITE } from "../core/Enums.js";
+import { DrawText, IsKeyDown, GetMouseWheelMove, GetFPS, GetMouseDelta, ClearBackground, IsKeyPressed } from "../core/Function.js";
+import { KEY_I, KEY_LEFT_CONTROL, KEY_U, SKYBLUE, WHITE } from "../core/Enums.js";
 import { SoundRegistry } from "../core/registry/SoundRegistry.js";
 import { PlayerKinematic } from "../entities/PlayerKinematic.js";
 
@@ -47,6 +47,15 @@ export class GameLoop extends Scene {
             Renderer.position.x -= GetMouseDelta().x / Renderer.zoom; 
             Renderer.position.y -= GetMouseDelta().y / Renderer.zoom; 
         }
+
+        if (IsKeyPressed(KEY_U)) {
+            this.serializedData = EntitySystem.serialize();
+            EntitySystem.clear();
+        }
+
+        if (IsKeyPressed(KEY_I)) {
+            EntitySystem.deserialize(this.serializedData);
+        }
     }
 
     drawWorld() {
@@ -61,19 +70,23 @@ export class GameLoop extends Scene {
 
     onSceneLoad() {
         EntitySystem.createEntity("Player", 700, 0);
-        EntitySystem.createEntity("PlayerKinematic", 900, 0);
-        EntitySystem.createEntity("Slime", 200, 700);
-        EntitySystem.createEntity("Slime", 300, 700);
-        EntitySystem.createEntity("Slime", 400, 700);
-        // EntitySystem.createEntity("Slime", 500, 400);
-        // EntitySystem.createEntity("Slime", 500, 500);
-        // EntitySystem.createEntity("Slime", 500, 600);
-        // EntitySystem.createEntity("Slime", 500, 700);
+        // EntitySystem.createEntity("PlayerKinematic", 900, 0);
+        // EntitySystem.createEntity("Slime", 200, 700);
+        // EntitySystem.createEntity("Slime", 300, 700);
+        // EntitySystem.createEntity("Slime", 400, 700);
 
         new TileMap(TESTMAP, EntitySystem);
     }
 
     onSceneUnload() {
+        // const player = new Player(10, 20);
+        // console.log("original:", player );
+        // // const data = ESSerializer.serialize(player);
+        // const data = player.serialize();
+        // const des = ESSerializer.deserialize(data);
+        // console.log("deserialize:", des );
+
+        // EntitySystem.serialize();
         EntitySystem.clear();
     }
 }
