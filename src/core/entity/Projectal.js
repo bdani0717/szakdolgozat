@@ -16,6 +16,15 @@ export class Projectal extends Entity {
         this.addComponent(new ProjectalRenderer(this));
         this.addComponent(new PorjectalUpdate(this));
     }
+
+    deserialize(data) {
+        const projectal = new Projectal(0, 0, 0, 0);
+        projectal.addComponent(data.getComponent(Transform));
+        projectal.addComponent(data.getComponent(ProjectalBody));
+        projectal.getComponent(ProjectalBody).transform = projectal.getComponent(Transform);
+
+        return projectal;
+    }
 }
 
 export class PorjectalUpdate extends Update {
