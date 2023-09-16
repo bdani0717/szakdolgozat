@@ -43,7 +43,7 @@ export class Entity {
         return Serializer.serialize(this);
     }
 
-    deserialize(data) {}
+    restore(data) {}
 }
 
 Serializer.registerClass(Entity);

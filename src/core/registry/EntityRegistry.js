@@ -105,9 +105,11 @@ export class EntityRegistry {
         this.#lastId = data.lastId;
         this.#entityTypes = data.entityTypes;
         this.#entities = new Map();
-        for (const {id, entity: entityData} of data.entities) {
-            const entity = Serializer.deserialize(entityData);
-            this.#entities.set(id, entity.deserialize(entity));
+        for (const {id, entity: serializedEntity} of data.entities) {
+            const deserializedEntity = Serializer.deserialize(serializedEntity);
+            const entity = deserializedEntity.restore(deserializedEntity);
+            entity.id = deserializedEntity.id;
+            this.#entities.set(id, entity);
         }
     }
     

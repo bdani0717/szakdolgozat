@@ -23,7 +23,7 @@ export class Player extends Entity {
         };
     }
 
-    deserialize(data) {
+    restore(data) {
         const player = new Player(0, 0);
         player.addComponent(data.getComponent(Transform));
         player.addComponent(data.getComponent(RigidBody));

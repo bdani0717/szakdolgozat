@@ -24,7 +24,7 @@ export class Tile extends Entity {
         this.addComponent(new StaticBody(this.getComponent(Transform), friction));
     }
 
-    deserialize(data) {
+    restore(data) {
         const tile = new Tile(0, 0, data.textureName, 0);
         tile.tileSize = data.tileSize;
         tile.addComponent(data.getComponent(Transform));

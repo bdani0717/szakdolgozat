@@ -4,7 +4,7 @@
         "raylib": "*"
     },
     "scripts": {
-        "start": "node index.js"
+        "start": "node main.js"
     },
     "type": "module",
     "devDependencies": {

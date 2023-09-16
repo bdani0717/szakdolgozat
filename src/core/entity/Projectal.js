@@ -17,7 +17,7 @@ export class Projectal extends Entity {
         this.addComponent(new PorjectalUpdate(this));
     }
 
-    deserialize(data) {
+    restore(data) {
         const projectal = new Projectal(0, 0, 0, 0);
         projectal.addComponent(data.getComponent(Transform));
         projectal.addComponent(data.getComponent(ProjectalBody));
