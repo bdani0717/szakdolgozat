@@ -180,7 +180,6 @@ export class PhysicsEngine {
             const entityId = client.data.entityId;
             const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
             const velocity = body.velocity;
-            console.log(velocity);
             body.transform.moveDeltaTime(velocity);
             this.#updateClientById(entityId, body);
         }

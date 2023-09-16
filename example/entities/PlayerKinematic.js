@@ -1,10 +1,10 @@
-import { DrawRectangleRec, IsKeyDown } from "../core/Function.js";
-import { KinematicBody } from "../core/component/KinematicBody.js";
-import { Render } from "../core/component/Render.js";
-import { Update } from "../core/component/Update.js";
-import { Entity } from "../core/entity/Entity.js";
-import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, ORANGE, WHITE } from "../core/Enums.js";
-import { Transform } from "../core/component/Transform.js";
+import { DrawRectangleRec, IsKeyDown } from "../../src/core/Function.js";
+import { KinematicBody } from "../../src/core/component/KinematicBody.js";
+import { Render } from "../../src/core/component/Render.js";
+import { Update } from "../../src/core/component/Update.js";
+import { Entity } from "../../src/core/entity/Entity.js";
+import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, ORANGE, WHITE } from "../../src/core/Enums.js";
+import { Transform } from "../../src/core/component/Transform.js";
 
 export class PlayerKinematic extends Entity {
     constructor(x, y) {

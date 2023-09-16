@@ -1,17 +1,17 @@
-import { Scene } from "../core/Scene.js";
-import { EntitySystem } from "../core/EntitySystem.js";
+import { Scene } from "../../src/core/Scene.js";
+import { EntitySystem } from "../../src/core/EntitySystem.js";
 import { Slime } from "../entities/Slime.js";
-import { Renderer } from "../core/renderer/Renderer.js";
-import { Tile } from "../core/entity/Tile.js";
-import { TESTMAP, TileMap } from "../core/TileMap.js";
+import { Renderer } from "../../src/core/renderer/Renderer.js";
+import { Tile } from "../../src/core/entity/Tile.js";
+import { TESTMAP, TileMap } from "../../src/core/TileMap.js";
 import { Grass } from "../tiles/Grass.js";
 import { Stone } from "../tiles/Stone.js";
 import { Player } from "../entities/Player.js";
-import { TextureRegistry } from "../core/registry/TextureRegistry.js";
-import { Projectal } from "../core/entity/Projectal.js";
-import { DrawText, IsKeyDown, GetMouseWheelMove, GetFPS, GetMouseDelta, ClearBackground, IsKeyPressed } from "../core/Function.js";
-import { KEY_I, KEY_LEFT_CONTROL, KEY_U, SKYBLUE, WHITE } from "../core/Enums.js";
-import { SoundRegistry } from "../core/registry/SoundRegistry.js";
+import { TextureRegistry } from "../../src/core/registry/TextureRegistry.js";
+import { Projectal } from "../../src/core/entity/Projectal.js";
+import { DrawText, IsKeyDown, GetMouseWheelMove, GetFPS, GetMouseDelta, ClearBackground, IsKeyPressed } from "../../src/core/Function.js";
+import { KEY_I, KEY_LEFT_CONTROL, KEY_U, SKYBLUE, WHITE } from "../../src/core/Enums.js";
+import { SoundRegistry } from "../../src/core/registry/SoundRegistry.js";
 import { PlayerKinematic } from "../entities/PlayerKinematic.js";
 
 export class GameLoop extends Scene {

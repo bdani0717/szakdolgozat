@@ -1,4 +1,4 @@
-import { Tile } from "../core/entity/Tile.js";
+import { Tile } from "../../src/core/entity/Tile.js";
 
 export class Stone extends Tile {
     constructor(x, y) {

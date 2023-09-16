@@ -1,8 +1,8 @@
-import { Scene } from "../core/Scene.js";
+import { Scene } from "../../src/core/Scene.js";
 import { GameLoop } from "./GameLoop.js";
-import { Renderer } from "../core/renderer/Renderer.js";
-import { ClearBackground, DrawText, GetMouseDelta, GetMouseWheelMove, GetScreenHeight, GetScreenWidth, IsKeyDown, IsKeyPressed } from "../core/Function.js";
-import { GRAY, KEY_LEFT_CONTROL, KEY_SPACE, YELLOW } from "../core/Enums.js";
+import { Renderer } from "../../src/core/renderer/Renderer.js";
+import { ClearBackground, DrawText, GetMouseDelta, GetMouseWheelMove, GetScreenHeight, GetScreenWidth, IsKeyDown, IsKeyPressed } from "../../src/core/Function.js";
+import { GRAY, KEY_LEFT_CONTROL, KEY_SPACE, YELLOW } from "../../src/core/Enums.js";
 
 export class MainMenu extends Scene {
     update() {

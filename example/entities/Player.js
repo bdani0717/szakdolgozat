@@ -1,13 +1,13 @@
-import { Entity } from "../core/entity/Entity.js";
-import { Render } from "../core/component/Render.js";
-import { Transform } from "../core/component/Transform.js";
-import { RigidBody } from "../core/component/RigidBody.js";
-import { Update } from "../core/component/Update.js";
-import { Sprite } from "../core/utils/Sprite.js";
-import { EntitySystem } from "../core/EntitySystem.js";
-import { DrawRectangleLinesEx, GetFrameTimeMS, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../core/Function.js";
-import { KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W, KEY_X, MOUSE_BUTTON_LEFT, ORANGE, WHITE } from "../core/Enums.js";
-import { SoundRegistry } from "../core/registry/SoundRegistry.js";
+import { Entity } from "../../src/core/entity/Entity.js";
+import { Render } from "../../src/core/component/Render.js";
+import { Transform } from "../../src/core/component/Transform.js";
+import { RigidBody } from "../../src/core/component/RigidBody.js";
+import { Update } from "../../src/core/component/Update.js";
+import { Sprite } from "../../src/core/utils/Sprite.js";
+import { EntitySystem } from "../../src/core/EntitySystem.js";
+import { DrawRectangleLinesEx, GetFrameTimeMS, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../../src/core/Function.js";
+import { KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W, KEY_X, MOUSE_BUTTON_LEFT, ORANGE, WHITE } from "../../src/core/Enums.js";
+import { SoundRegistry } from "../../src/core/registry/SoundRegistry.js";
 
 import ESSerializer from "esserializer";
 
@@ -67,8 +67,8 @@ export class PlayerUpdate extends Update{
 
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
                 const projectalVelocity = {
-                    x: GetMouseX() - body.transform.x, 
-                    y: GetMouseY() - body.transform.y, 
+                    x: (GetMouseX() - body.transform.x) / 1000, 
+                    y: (GetMouseY() - body.transform.y) / 1000, 
                 };
                 
                 for (let j = 0; j < 1; j++) {

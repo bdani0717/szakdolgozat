@@ -1,11 +1,11 @@
-import { Entity } from "../core/entity/Entity.js";
-import { Render } from "../core/component/Render.js";
-import { Transform } from "../core/component/Transform.js";
-import { RigidBody } from "../core/component/RigidBody.js";
-import { Update } from "../core/component/Update.js";
-import { DrawRectangleLinesEx, DrawRectangleV } from "../core/Function.js";
-import { BLUE, RED } from "../core/Enums.js";
-import { KinematicBody } from "../core/component/KinematicBody.js";
+import { Entity } from "../../src/core/entity/Entity.js";
+import { Render } from "../../src/core/component/Render.js";
+import { Transform } from "../../src/core/component/Transform.js";
+import { RigidBody } from "../../src/core/component/RigidBody.js";
+import { Update } from "../../src/core/component/Update.js";
+import { DrawRectangleLinesEx, DrawRectangleV } from "../../src/core/Function.js";
+import { BLUE, RED } from "../../src/core/Enums.js";
+import { KinematicBody } from "../../src/core/component/KinematicBody.js";
 
 export class Slime extends Entity {
     constructor(x, y) {
