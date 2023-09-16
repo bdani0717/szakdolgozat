@@ -1,4 +1,4 @@
-import { GetFrameTime } from "../Function.js";
+import { GetFrameTimeMS } from "../Function.js";
 import { Vector } from "../utils/Vector.js";
 import { checkAABB, getBroadPhaseArea, sweptAABB } from "./Collision.js";
 
@@ -9,8 +9,8 @@ export class CollisionResolver {
     }
 
     resolve() {
-        const scaledVelA = Vector.scale(this.a.velocity, GetFrameTime());
-        const scaledVelB = Vector.scale(this.b.velocity, GetFrameTime());
+        const scaledVelA = Vector.scale(this.a.velocity, GetFrameTimeMS());
+        const scaledVelB = Vector.scale(this.b.velocity, GetFrameTimeMS());
         const broadPhaseA = getBroadPhaseArea(this.a.transform, scaledVelA);
         const broadPhaseB = getBroadPhaseArea(this.b.transform, scaledVelB);
 
@@ -59,7 +59,7 @@ export class CollisionResolver {
         const impulse = -this.b.friction * velocityAlongTangent;
         const frictionV = Vector.scale(tangentVector, impulse);
         
-        this.a.applyForce(Vector.scale(frictionV, GetFrameTime()));
+        this.a.applyForce(Vector.scale(frictionV, GetFrameTimeMS()));
     }
 }
 

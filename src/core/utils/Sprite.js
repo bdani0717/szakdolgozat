@@ -1,6 +1,6 @@
 import { TextureRegistry } from "../registry/TextureRegistry.js";
 import { WHITE } from "../Enums.js";
-import { DrawTexturePro, GetFrameTime } from "../Function.js";
+import { DrawTexturePro, GetFrameTimeMS } from "../Function.js";
 
 
 export class Sprite {
@@ -34,7 +34,7 @@ export class Sprite {
             return;
         }
 
-        this.#timer += GetFrameTime() * 1000;
+        this.#timer += GetFrameTimeMS();
         if (this.#timer >= this.#frameTimeMS) {
             this.#currentFrame++;
             this.#currentFrame %= this.#frameCount; 

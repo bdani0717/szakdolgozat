@@ -1,3 +1,4 @@
+import { GetFrameTimeMS } from "../Function.js";
 import { Entity } from "../entity/Entity.js";
 import Serializer from "esserializer";
 
@@ -31,6 +32,11 @@ export class Transform extends Entity.Component {
     move(vector) {
         this.x += vector.x;
         this.y += vector.y;
+    }
+
+    moveDeltaTime(vector) {
+        this.x += vector.x * GetFrameTimeMS();
+        this.y += vector.y * GetFrameTimeMS();
     }
 }
 

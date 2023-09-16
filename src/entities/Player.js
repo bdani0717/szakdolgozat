@@ -5,7 +5,7 @@ import { RigidBody } from "../core/component/RigidBody.js";
 import { Update } from "../core/component/Update.js";
 import { Sprite } from "../core/utils/Sprite.js";
 import { EntitySystem } from "../core/EntitySystem.js";
-import { DrawRectangleLinesEx, GetFrameTime, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../core/Function.js";
+import { DrawRectangleLinesEx, GetFrameTimeMS, GetMouseX, GetMouseY, IsKeyDown, IsKeyPressed, IsMouseButtonDown } from "../core/Function.js";
 import { KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W, KEY_X, MOUSE_BUTTON_LEFT, ORANGE, WHITE } from "../core/Enums.js";
 import { SoundRegistry } from "../core/registry/SoundRegistry.js";
 
@@ -17,7 +17,7 @@ export class Player extends Entity {
         this.addComponent(new Transform(x, y, 128, 200));
         this.addComponent(new PlayerUpdate(this));
         this.addComponent(new PlayerRender(this));
-        this.addComponent(new RigidBody(this.getComponent(Transform), {x: 0, y: 0}, 0.5, 10));
+        this.addComponent(new RigidBody(this.getComponent(Transform), {x: 0, y: 0}, 0.5, 10000));
         this.animations = {
             "idleLeft": new Sprite("playerIdleLeft", 6, 125),
         };
@@ -51,16 +51,16 @@ export class PlayerUpdate extends Update{
     constructor(self) {
         super();
         this.update = () => {
-            const speed = 1000;
+            const speed = 0.001;
             const body = self.getComponent(RigidBody);
             const velocity = body.velocity;
 
-            if (IsKeyDown(KEY_A)) { velocity.x -= speed * GetFrameTime(); }
-            if (IsKeyDown(KEY_D)) { velocity.x += speed * GetFrameTime(); }
-            if (IsKeyDown(KEY_W)) { velocity.y -= speed * GetFrameTime(); }
-            if (IsKeyDown(KEY_S)) { velocity.y += speed * GetFrameTime(); }
+            if (IsKeyDown(KEY_A)) { velocity.x -= speed * GetFrameTimeMS(); }
+            if (IsKeyDown(KEY_D)) { velocity.x += speed * GetFrameTimeMS(); }
+            if (IsKeyDown(KEY_W)) { velocity.y -= speed * GetFrameTimeMS(); }
+            if (IsKeyDown(KEY_S)) { velocity.y += speed * GetFrameTimeMS(); }
             if (IsKeyPressed(KEY_SPACE)) { 
-                velocity.y = -600;
+                velocity.y = -0.6;
                 SoundRegistry.playSound("coin");
             }
             if (IsKeyDown(KEY_X)) { velocity.x = 0; velocity.y = 0; }

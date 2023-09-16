@@ -8,7 +8,7 @@ export class EntitySystem {
 
     static init() {
         this.#entityRegistry = new EntityRegistry();
-        this.#physicsEngine = new PhysicsEngine(this.#entityRegistry, 10, {x: 0, y: 2000});
+        this.#physicsEngine = new PhysicsEngine(this.#entityRegistry, 10, {x: 0, y: 2});
     }
 
     static registerEntity(entityClass) {

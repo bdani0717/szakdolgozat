@@ -1,5 +1,9 @@
 import r from "raylib";
 
+export function GetFrameTimeMS() {
+    return r.GetFrameTime() * 1000;
+}
+
 export const { 
     // WINDOW
     CloseWindow,
@@ -48,7 +52,6 @@ export const {
 
     // TIMING
     GetFPS,
-    GetFrameTime,
     GetTime,
 
     // MISC

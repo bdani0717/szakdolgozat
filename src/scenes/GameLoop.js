@@ -79,13 +79,6 @@ export class GameLoop extends Scene {
     }
 
     onSceneUnload() {
-        // const player = new Player(10, 20);
-        // console.log("original:", player );
-        // // const data = ESSerializer.serialize(player);
-        // const data = player.serialize();
-        // const des = ESSerializer.deserialize(data);
-        // console.log("deserialize:", des );
-
         // EntitySystem.serialize();
         EntitySystem.clear();
     }
