@@ -8,7 +8,7 @@ import { KinematicBody } from "../component/KinematicBody.js";
 import { AreaBody } from "../component/AreaBody.js";
 import { Body } from "../component/Body.js";
 import { EntitySystem } from "../EntitySystem.js";
-import { GetFrameTimeMS } from "../Function.js";
+import { GetFrameTime } from "../Function.js";
 import { Vector } from "../utils/Vector.js";
 
 
@@ -190,7 +190,7 @@ export class PhysicsEngine {
         const body = this.#entityRegistry.getEntity(entityId).getComponent(Body);
         const transform = body.transform;
         const velocity = body.velocity;
-        const searchArea = getBroadPhaseArea(transform, Vector.scale(velocity, GetFrameTimeMS()));
+        const searchArea = getBroadPhaseArea(transform, Vector.scale(velocity, GetFrameTime()));
 
         // No need to check collisions against projectals
         const clientsInRange = [ ...this.#containers[type].find(searchArea) ];
@@ -234,7 +234,8 @@ export class PhysicsEngine {
         for (const [ , client ] of allClients) {
             const body = this.#entityRegistry.getEntity(client.data.entityId).getComponent(Body);
             if (body.useGravity) { 
-                body.applyForce(Vector.scale(this.gravity, GetFrameTimeMS()));
+                const gravityForce = Vector.scale(this.gravity, body.mass);
+                body.applyForce(Vector.scale(gravityForce, GetFrameTime()));
             }
         }
     }

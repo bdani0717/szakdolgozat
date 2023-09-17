@@ -70,10 +70,10 @@ export class GameLoop extends Scene {
 
     onSceneLoad() {
         EntitySystem.createEntity("Player", 700, 0);
-        // EntitySystem.createEntity("PlayerKinematic", 900, 0);
-        // EntitySystem.createEntity("Slime", 200, 700);
-        // EntitySystem.createEntity("Slime", 300, 700);
-        // EntitySystem.createEntity("Slime", 400, 700);
+        EntitySystem.createEntity("Slime", 200, 700);
+        EntitySystem.createEntity("PlayerKinematic", 900, 0);
+        EntitySystem.createEntity("Slime", 300, 700);
+        EntitySystem.createEntity("Slime", 400, 700);
 
         new TileMap(TESTMAP, EntitySystem);
     }

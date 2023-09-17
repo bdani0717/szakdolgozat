@@ -17,6 +17,11 @@ export class Entity {
         this.components[component.constructor.name] = component;
     }
 
+    /**
+     * @template T
+     * @param { new () => T } componentClass 
+     * @returns { T }
+     */
     getComponent(componentClass) {
         for (const prop in this.components) {
             if (this.components[prop] instanceof componentClass) {

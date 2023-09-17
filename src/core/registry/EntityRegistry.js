@@ -44,6 +44,10 @@ export class EntityRegistry {
         return instance;
     }
 
+    /**
+     * * @param {number} entityId 
+     * @returns {Entity} 
+     */
     getEntity(entityId) {
         return this.#entities.get(entityId);
     }

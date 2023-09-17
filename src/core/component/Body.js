@@ -8,6 +8,7 @@ export class Body extends Entity.Component {
         super();
         this.type = type;
 
+        this.mass = Infinity;
         this.velocity = {x: 0, y: 0};
         this.friction = Math.max(friction, 0);
 
@@ -17,6 +18,8 @@ export class Body extends Entity.Component {
     get isHit() {
         return this.collisions.length > 0;
     }
+
+    applyForce(force) {}
 
     resolveCollision(other, normal) {}
 }

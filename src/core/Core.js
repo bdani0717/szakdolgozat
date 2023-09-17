@@ -7,7 +7,7 @@ import { SoundRegistry } from "./registry/SoundRegistry.js";
 import { BLACK, WHITE } from "./Enums.js";
 import { ClearBackground, DrawText } from "./Function.js";
 
-export class GameEngine {
+export class Core {
     constructor(windowWidth, windowHeight) {
         this.screenWidth = windowWidth;
         this.screenHeight = windowHeight;

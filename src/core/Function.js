@@ -1,7 +1,10 @@
 import r from "raylib";
 
-export function GetFrameTimeMS() {
-    return r.GetFrameTime() * 1000;
+// export function GetFrameTimeMS() {
+//     return r.GetFrameTime() * 1000;
+// }
+export function GetFrameTime() {
+    return r.GetFrameTime();
 }
 
 export const { 

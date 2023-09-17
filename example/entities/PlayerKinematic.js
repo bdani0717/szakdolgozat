@@ -10,7 +10,7 @@ export class PlayerKinematic extends Entity {
     constructor(x, y) {
         super();
         this.addComponent(new Transform(x, y, 48, 48));
-        this.addComponent(new KinematicBody(this.getComponent(Transform), { x: 0, y: 0 }, 10, 10, true));
+        this.addComponent(new KinematicBody(this.getComponent(Transform), { x: 0, y: 0 }, 10, Infinity));
         this.addComponent(new PlayerKinematicUpdate(this));
         this.addComponent(new PlayerKinematicRender(this));
     }
@@ -36,6 +36,8 @@ export class PlayerKinematicUpdate extends Update {
             const speed = 200;
             const body = self.getComponent(KinematicBody);
             const velocity = body.velocity;
+            velocity.x = 0;
+            velocity.y = 0;
 
             if (IsKeyDown(KEY_LEFT)) { velocity.x = -speed; }
             else if (IsKeyDown(KEY_RIGHT)) { velocity.x = speed; }
