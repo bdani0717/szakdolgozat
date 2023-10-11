@@ -5,7 +5,6 @@ import { CollisionResolver } from "./CollisionResolver.js";
 import { ProjectalBody } from "../component/ProjectalBody.js";
 import { StaticBody } from "../component/StaticBody.js";
 import { KinematicBody } from "../component/KinematicBody.js";
-import { AreaBody } from "../component/AreaBody.js";
 import { Body } from "../component/Body.js";
 import { EntitySystem } from "../EntitySystem.js";
 import { GetFrameTime } from "../Function.js";
@@ -79,7 +78,6 @@ export class PhysicsEngine {
             ...this.#containers[StaticBody.TYPE].find(area),
             ...this.#containers[RigidBody.TYPE].find(area),
             ...this.#containers[KinematicBody.TYPE].find(area),
-            ...this.#containers[AreaBody.TYPE].find(area),
         ];
 
         for (const client of clientsInArea) {
@@ -103,13 +101,11 @@ export class PhysicsEngine {
         this.#clients[StaticBody.TYPE] = new Map();
         this.#clients[RigidBody.TYPE] = new Map();
         this.#clients[KinematicBody.TYPE] = new Map();
-        this.#clients[AreaBody.TYPE] = new Map();
         
         this.#containers[ProjectalBody.TYPE] = new SpatialHashGrid(area, 12);
         this.#containers[StaticBody.TYPE] = new SpatialHashGrid(area, 48);
         this.#containers[RigidBody.TYPE] = new SpatialHashGrid(area, 48);
         this.#containers[KinematicBody.TYPE] = new SpatialHashGrid(area, 48);
-        this.#containers[AreaBody.TYPE] = new SpatialHashGrid(area, 48);
     }
 
     #updateClient(client, body) {
@@ -142,8 +138,6 @@ export class PhysicsEngine {
         this.#handleCollisionsByType(KinematicBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
 
         this.#handleCollisionsByType(ProjectalBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, StaticBody.TYPE ]);
-
-        this.#handleCollisionsByType(AreaBody.TYPE, [ RigidBody.TYPE, KinematicBody.TYPE, ProjectalBody.TYPE ]);
     }
 
     #handleCollisionsByType(typeA, types) {
@@ -158,14 +152,13 @@ export class PhysicsEngine {
      * Set colliders into default state (not colliding, and empty collision list)
      */
     #resetCollisions() {
-        const allClients = [
+        const clients = [
             ...this.#clients[RigidBody.TYPE], 
             ...this.#clients[ProjectalBody.TYPE], 
             ...this.#clients[StaticBody.TYPE], 
-            ...this.#clients[AreaBody.TYPE], 
             ...this.#clients[KinematicBody.TYPE],
         ];
-        for (const [ , client ] of allClients) {
+        for (const [ , client ] of clients) {
             const body = EntitySystem.getEntity(client.data.entityId).getComponent(Body);
             body.collisions = [];
             body.isColliding = false;
@@ -205,7 +198,7 @@ export class PhysicsEngine {
             const otherId = otherClient.data.entityId;
             const otherBody = this.#entityRegistry.getEntity(otherId).getComponent(Body);
             if (otherId !== entityId) {
-                const collision = new CollisionResolver(body, otherBody);
+                const collision = new CollisionResolver({id: entityId, body: body}, {id: otherId, body: otherBody});
                 const collisionData = collision.resolve();
 
                 if (collisionData.collision) {

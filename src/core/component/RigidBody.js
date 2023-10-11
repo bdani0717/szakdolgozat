@@ -54,7 +54,7 @@ export class RigidBody extends Body {
     }
 
     resolveCollision(other, normal) {
-        const relativeVelocity = Vector.subtract(this.velocity, other.velocity);
+        const relativeVelocity = Vector.subtract(this.velocity, other.body.velocity);
         const velocityAlongNormal = Vector.dot(relativeVelocity, normal);
     
         if (velocityAlongNormal > 0) {
@@ -62,28 +62,28 @@ export class RigidBody extends Body {
             return;
         }
     
-        const e = Math.min((this.restitution || 0), (other.restitution || 0));
+        const e = Math.min((this.restitution || 0), (other.body.restitution || 0));
         // const e = this.restitution;
         let j = -(1 + e) * velocityAlongNormal;
-        j /= 1 / this.mass + 1 / other.mass;
+        j /= 1 / this.mass + 1 / other.body.mass;
         const impulse = Vector.scale(normal, j);
 
         this.applyForce(impulse);
-        other.applyForce(Vector.scale(impulse, -1));
+        other.body.applyForce(Vector.scale(impulse, -1));
 
         const offset = 0.01;
         if (normal.x === 1) {
-            this.transform.x = other.transform.x + other.transform.width + offset;
+            this.transform.x = other.body.transform.x + other.body.transform.width + offset;
             this.velocity.x = 0;
         } else if (normal.x === -1) {
-            this.transform.x = other.transform.x - this.transform.width - offset;
+            this.transform.x = other.body.transform.x - this.transform.width - offset;
             this.velocity.x = 0;
         }
         if (normal.y === 1) {
-            this.transform.y = other.transform.y + other.transform.height + offset;
+            this.transform.y = other.body.transform.y + other.body.transform.height + offset;
             this.velocity.y = 0;
         } else if (normal.y === -1) {
-            this.transform.y = other.transform.y - this.transform.height - offset;
+            this.transform.y = other.body.transform.y - this.transform.height - offset;
             this.velocity.y = 0;
         }
     }

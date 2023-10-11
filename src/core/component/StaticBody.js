@@ -13,7 +13,7 @@ export class StaticBody extends Body {
     }
 
     resolveCollision(other, normal) {
-        const relativeVelocity = Vector.subtract(this.velocity, other.velocity);
+        const relativeVelocity = Vector.subtract(this.velocity, other.body.velocity);
         const velocityAlongNormal = Vector.dot(relativeVelocity, normal);
     
         if (velocityAlongNormal > 0) {
@@ -24,11 +24,11 @@ export class StaticBody extends Body {
         // const e = Math.min((this.restitution || 0), (this.restitution || 0));
         const e = this.restitution;
         let j = -(1 + e) * velocityAlongNormal;
-        j /= 1 / this.mass + 1 / other.mass;
+        j /= 1 / this.mass + 1 / other.body.mass;
         const impulse = Vector.scale(normal, j);
 
         this.applyForce(impulse);
-        other.applyForce(Vector.scale(impulse, -1));
+        other.body.applyForce(Vector.scale(impulse, -1));
     }
 }    
 

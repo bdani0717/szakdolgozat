@@ -9,13 +9,15 @@ export class CollisionResolver {
     }
 
     resolve() {
-        const scaledVelA = Vector.scale(this.a.velocity, GetFrameTime());
-        const scaledVelB = Vector.scale(this.b.velocity, GetFrameTime());
-        const broadPhaseA = getBroadPhaseArea(this.a.transform, scaledVelA);
-        const broadPhaseB = getBroadPhaseArea(this.b.transform, scaledVelB);
+        const a = this.a.body;
+        const b = this.b.body;
+        const scaledVelA = Vector.scale(a.velocity, GetFrameTime());
+        const scaledVelB = Vector.scale(b.velocity, GetFrameTime());
+        const broadPhaseA = getBroadPhaseArea(a.transform, scaledVelA);
+        const broadPhaseB = getBroadPhaseArea(b.transform, scaledVelB);
 
         if (checkAABB(broadPhaseA, broadPhaseB)) {
-            const collision = sweptAABB(this.a.transform, scaledVelA, this.b.transform, scaledVelB);
+            const collision = sweptAABB(a.transform, scaledVelA, b.transform, scaledVelB);
             
             if (collision.time >= 1) {
                 return {
@@ -27,11 +29,11 @@ export class CollisionResolver {
             this.normal = collision.normal;
             this.force = {x: 0, y: 0};
 
-            if (this.a.useFriction) {
+            if (a.useFriction) {
                 this.#applyFriction();
             }
             
-            this.a.resolveCollision(this.b, this.normal);
+            a.resolveCollision(this.b, this.normal);
 
             return {
                 collision: collision.time < 1,
@@ -46,6 +48,8 @@ export class CollisionResolver {
     }
 
     #applyFriction() {
+        const a = this.a.body;
+        const b = this.b.body;
         if (this.b.friction === 0) {
             return;
         }
@@ -55,11 +59,11 @@ export class CollisionResolver {
             y: this.normal.x,
         };
 
-        const velocityAlongTangent = Vector.dot(this.a.velocity, tangentVector);
-        const impulse = -this.b.friction * velocityAlongTangent;
+        const velocityAlongTangent = Vector.dot(a.velocity, tangentVector);
+        const impulse = -b.friction * velocityAlongTangent;
         const frictionV = Vector.scale(tangentVector, impulse);
         
-        this.a.applyForce(Vector.scale(frictionV, GetFrameTime()));
+        a.applyForce(Vector.scale(frictionV, GetFrameTime()));
     }
 }
 
