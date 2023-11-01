@@ -5,6 +5,7 @@ import { Update } from "../../src/core/component/Update.js";
 import { Entity } from "../../src/core/entity/Entity.js";
 import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, ORANGE, WHITE } from "../../src/core/Enums.js";
 import { Transform } from "../../src/core/component/Transform.js";
+import ESSerialzer from "esserializer";
 
 export class PlayerKinematic extends Entity {
     constructor(x, y) {
@@ -13,6 +14,15 @@ export class PlayerKinematic extends Entity {
         this.addComponent(new KinematicBody(this.getComponent(Transform), { x: 0, y: 0 }, 10, Infinity));
         this.addComponent(new PlayerKinematicUpdate(this));
         this.addComponent(new PlayerKinematicRender(this));
+    }
+    
+    restore(data) {
+        const playerKinematic = new PlayerKinematic(0, 0);
+        playerKinematic.addComponent(data.getComponent(Transform));
+        playerKinematic.addComponent(data.getComponent(KinematicBody));
+        playerKinematic.getComponent(KinematicBody).transform = playerKinematic.getComponent(Transform);
+
+        return playerKinematic;
     }
 }
 
@@ -46,3 +56,6 @@ export class PlayerKinematicUpdate extends Update {
         };
     }
 }
+
+ESSerialzer.registerClass(PlayerKinematicUpdate);
+ESSerialzer.registerClass(PlayerKinematicRender);

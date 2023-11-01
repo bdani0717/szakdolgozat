@@ -12,7 +12,6 @@ export class Slime extends Entity {
         super();
         this.addComponent(new Transform(x, y, 48, 48));
         this.addComponent(new SlimeRender(this));
-        // this.addComponent(new KinematicBody(this.getComponent(Transform), {x: 0, y: 0}, 0.3, 10));
         this.addComponent(new RigidBody(this.getComponent(Transform), {x: 0, y: 0}, 0.3, 10));
         this.addComponent(new Update(() => this.update()));
     }
